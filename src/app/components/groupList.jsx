@@ -2,12 +2,22 @@ import PropTypes from "prop-types";
 
 
 const GroupList = ({items, selectedItem, onItemSelect, valueProp='_id', contentProp='name'}) => {
-    return <ul className="list-group">{
+    if (Array.isArray(items)) {
+        return <ul className="list-group">{
+            (items).map(item => 
+                <li className={"list-group-item" + (item === selectedItem ? ' active' : '')}
+                    key={item[valueProp]} onClick={() => onItemSelect(item)} role="button">{item[contentProp]}
+                </li>)
+        }</ul>
+    }
+    else {
+        return <ul className="list-group">{
             Object.values(items).map(item => 
                 <li className={"list-group-item" + (item === selectedItem ? ' active' : '')}
                     key={item[valueProp]} onClick={() => onItemSelect(item)} role="button">{item[contentProp]}
                 </li>)
         }</ul>
+    }
 };
 
 GroupList.propTypes = {
