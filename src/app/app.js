@@ -5,6 +5,7 @@ import TopStatus from "./components/topStatus";
 import Pagination from "./components/pagination";
 import { paginate } from "./utils/paginate";
 import GroupList from "./components/groupList";
+import _ from "lodash";
 
 
 const App = () => {
@@ -32,8 +33,9 @@ const App = () => {
     const pageCountSize = 4;
 
     const filteredUsers = users && selectedProf ? users.filter(user => user.profession._id === selectedProf._id) : users;
+    const sortedUsers = _.orderBy(filteredUsers, ['name'], ['asc']);
     const usersCount = filteredUsers ? filteredUsers.length : 0;
-    const usersCrop = filteredUsers ? paginate(filteredUsers, currentPage, pageCountSize) : [];
+    const usersCrop = filteredUsers ? paginate(sortedUsers, currentPage, pageCountSize) : [];
 
 
     const handleDelete = (id) => {
