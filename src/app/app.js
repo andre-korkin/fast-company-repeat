@@ -50,6 +50,10 @@ const App = () => {
         });
         setUsers(newUsers)
     };
+
+    const handleSort = (column) => {
+        console.log(column)
+    };
     
     const handlePageChange = (numPage) => {
         setPage(numPage)
@@ -73,7 +77,7 @@ const App = () => {
             )}
             <div className="d-flex flex-column p-3">
                 {users && <TopStatus count={usersCount} />}
-                {users && <UsersTable users={usersCrop} onDelete={handleDelete} onToggle={handleToggleBookmark} />}
+                {users && <UsersTable users={usersCrop} onSort={handleSort} onDelete={handleDelete} onToggle={handleToggleBookmark} />}
                 <Pagination count={usersCount} size={pageCountSize} page={currentPage} onChange={handlePageChange} />
             </div>
         </div>
