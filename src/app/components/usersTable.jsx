@@ -7,13 +7,13 @@ const UsersTable = ({usersCrop, onSort, ...rest}) => {
         <table className="table">
             <thead>
                 <tr>
-                    <th onClick={() => onSort('name')} scope="col">Имя</th>
-                    <th scope="col">Качества</th>
-                    <th onClick={() => onSort('profession.name')} scope="col">Профессия</th>
-                    <th onClick={() => onSort('completedMeetings')} scope="col">Встретился раз</th>
-                    <th onClick={() => onSort('rate')} scope="col">Оценка</th>
-                    <th onClick={() => onSort('bookmark')} scope="col">Избранное</th>
-                    <th scope="col"></th>
+                    <th role="button" onClick={() => onSort('name')} scope="col">Имя</th>
+                    <th role="button" scope="col">Качества</th>
+                    <th role="button" onClick={() => onSort('profession.name')} scope="col">Профессия</th>
+                    <th role="button" onClick={() => onSort('completedMeetings')} scope="col">Встретился раз</th>
+                    <th role="button" onClick={() => onSort('rate')} scope="col">Оценка</th>
+                    <th role="button" onClick={() => onSort('bookmark')} scope="col">Избранное</th>
+                    <th role="button" scope="col"></th>
                 </tr>
             </thead>
             <tbody>

@@ -32,8 +32,10 @@ const App = () => {
 
     const pageCountSize = 4;
 
+    const [sorting, setSorting] = useState({iter: 'name', order: 'asc'});
+
     const filteredUsers = users && selectedProf ? users.filter(user => user.profession._id === selectedProf._id) : users;
-    const sortedUsers = _.orderBy(filteredUsers, ['name'], ['asc']);
+    const sortedUsers = _.orderBy(filteredUsers, [sorting.iter], [sorting.order]);
     const usersCount = filteredUsers ? filteredUsers.length : 0;
     const usersCrop = filteredUsers ? paginate(sortedUsers, currentPage, pageCountSize) : [];
 
@@ -54,7 +56,12 @@ const App = () => {
     };
 
     const handleSort = (column) => {
-        console.log(column)
+        if (sorting.iter === column) {
+            setSorting(prevState => ({...prevState, order: prevState.order === 'asc' ? 'desc' : 'asc'}))
+        }
+        else {
+            setSorting({iter: column, order: 'asc'})
+        }
     };
     
     const handlePageChange = (numPage) => {
