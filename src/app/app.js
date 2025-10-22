@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import API from "./api";
-import UserList from './components/userList';
+import UsersTable from "./components/usersTable";
 import TopStatus from "./components/topStatus";
 import Pagination from "./components/pagination";
 import { paginate } from "./utils/paginate";
@@ -73,22 +73,7 @@ const App = () => {
             )}
             <div className="d-flex flex-column p-3">
                 {users && <TopStatus count={usersCount} />}
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Имя</th>
-                            <th scope="col">Качества</th>
-                            <th scope="col">Профессия</th>
-                            <th scope="col">Встретился раз</th>
-                            <th scope="col">Оценка</th>
-                            <th scope="col">Избранное</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users && <UserList users={usersCrop} onDelete={handleDelete} onToggle={handleToggleBookmark} />}
-                    </tbody>
-                </table>
+                {users && <UsersTable users={usersCrop} onDelete={handleDelete} onToggle={handleToggleBookmark} />}
                 <Pagination count={usersCount} size={pageCountSize} page={currentPage} onChange={handlePageChange} />
             </div>
         </div>
