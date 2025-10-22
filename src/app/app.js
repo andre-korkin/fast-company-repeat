@@ -8,29 +8,33 @@ import GroupList from "./components/groupList";
 
 
 const App = () => {
-    const initialUsers = API.users.fetchAll();
-    const usersWithBookmarks = initialUsers.map(user => {
-        user.bookmark = false;
-        return user
-    })
-    const [users, setUsers] = useState(usersWithBookmarks);
-    const [currentPage, setPage] = useState(1);
+    const [users, setUsers] = useState();
+    useEffect(() => {
+        async function fetchData() {
+            setUsers(await API.users())
+        };
+        fetchData()
+    }, [])
+    
     const [professions, setProfessions] = useState();
+    useEffect(() => {
+        async function fetchData() {
+            setProfessions(await API.professions())
+        };
+        fetchData()
+    }, [])
+
+    const [currentPage, setPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
 
-    useEffect(() => {
-        API.professions().then(data => setProfessions(data))
-    }, []);
-
-    useEffect(() => {
-        setPage(1)
-    }, [selectedProf]);
+    useEffect(() => setPage(1), [selectedProf]);
 
     const pageCountSize = 4;
 
-    const filteredUsers = selectedProf ? users.filter(user => user.profession === selectedProf) : users;
-    const usersCount = filteredUsers.length;
-    const usersCrop = paginate(filteredUsers, currentPage, pageCountSize);
+    const filteredUsers = users && selectedProf ? users.filter(user => user.profession._id === selectedProf._id) : users;
+    const usersCount = filteredUsers ? filteredUsers.length : 0;
+    const usersCrop = filteredUsers ? paginate(filteredUsers, currentPage, pageCountSize) : [];
+
 
     const handleDelete = (id) => {
         setUsers(prevState => prevState.filter(user => user._id !== id))
@@ -68,7 +72,7 @@ const App = () => {
                 </div>
             )}
             <div className="d-flex flex-column p-3">
-                <TopStatus count={usersCount} />
+                {users && <TopStatus count={usersCount} />}
                 <table className="table">
                     <thead>
                         <tr>
@@ -82,7 +86,7 @@ const App = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <UserList users={usersCrop} onDelete={handleDelete} onToggle={handleToggleBookmark} />
+                        {users && <UserList users={usersCrop} onDelete={handleDelete} onToggle={handleToggleBookmark} />}
                     </tbody>
                 </table>
                 <Pagination count={usersCount} size={pageCountSize} page={currentPage} onChange={handlePageChange} />
