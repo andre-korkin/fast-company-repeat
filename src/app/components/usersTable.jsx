@@ -1,33 +1,23 @@
+import TableHeader from "./tableHeader";
 import UserList from "./userList";
 import PropTypes from "prop-types";
 
 
-const UsersTable = ({usersCrop, onSort, currentSort, ...rest}) => {
-    const handleSort = (column) => {
-        if (currentSort.iter === column) {
-            onSort({...currentSort, order: currentSort.order === 'asc' ? 'desc' : 'asc'})
-        }
-        else {
-            onSort({iter: column, order: 'asc'})
-        }
+const UsersTable = ({usersCrop, onSort, selectedSort, ...rest}) => {
+    const columns = {
+        name: {iter: 'name', name: 'Имя'},
+        qualities: {name: 'Качества'},
+        profession: {iter: 'profession.name', name: 'Профессия'},
+        complitedMeetings: {iter: 'complitedMeetings', name: 'Встретился, раз'},
+        rate: {iter: 'rate', name: 'Оценка'},
+        bookmark: {iter: 'bookmark', name: 'Избранное'},
+        delete: {}
     };
 
     return ( 
         <table className="table">
-            <thead>
-                <tr>
-                    <th role="button" onClick={() => handleSort('name')} scope="col">Имя</th>
-                    <th role="button" scope="col">Качества</th>
-                    <th role="button" onClick={() => handleSort('profession.name')} scope="col">Профессия</th>
-                    <th role="button" onClick={() => handleSort('completedMeetings')} scope="col">Встретился раз</th>
-                    <th role="button" onClick={() => handleSort('rate')} scope="col">Оценка</th>
-                    <th role="button" onClick={() => handleSort('bookmark')} scope="col">Избранное</th>
-                    <th role="button" scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                {<UserList users={usersCrop} {...rest} />}
-            </tbody>
+            {<TableHeader {...{onSort, selectedSort, columns}} />}
+            {<UserList users={usersCrop} {...rest} />}
         </table>
      );
 };

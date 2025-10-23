@@ -81,7 +81,7 @@ const App = () => {
             )}
             <div className="d-flex flex-column p-3">
                 {users && <TopStatus count={usersCount} />}
-                {users && <UsersTable users={usersCrop} onSort={handleSort} currentSort={sorting} onDelete={handleDelete} onToggle={handleToggleBookmark} />}
+                {users && <UsersTable users={usersCrop} onSort={handleSort} selectedSort={sorting} onDelete={handleDelete} onToggle={handleToggleBookmark} />}
                 <Pagination count={usersCount} size={pageCountSize} page={currentPage} onChange={handlePageChange} />
             </div>
         </div>
