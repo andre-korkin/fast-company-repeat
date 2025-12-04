@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 
 const UsersTable = ({usersCrop, onSort, selectedSort, ...rest}) => {
     const columns = {
-        name: {iter: 'name', name: 'Имя'},
+        name: {path: 'name', name: 'Имя'},
         qualities: {name: 'Качества'},
-        profession: {iter: 'profession.name', name: 'Профессия'},
-        complitedMeetings: {iter: 'complitedMeetings', name: 'Встретился, раз'},
-        rate: {iter: 'rate', name: 'Оценка'},
-        bookmark: {iter: 'bookmark', name: 'Избранное'},
+        profession: {path: 'profession.name', name: 'Профессия'},
+        complitedMeetings: {path: 'complitedMeetings', name: 'Встретился, раз'},
+        rate: {path: 'rate', name: 'Оценка'},
+        bookmark: {path: 'bookmark', name: 'Избранное'},
         delete: {}
     };
 
