@@ -55,13 +55,8 @@ const App = () => {
         setUsers(newUsers)
     };
 
-    const handleSort = (column) => {
-        if (sorting.iter === column) {
-            setSorting(prevState => ({...prevState, order: prevState.order === 'asc' ? 'desc' : 'asc'}))
-        }
-        else {
-            setSorting({iter: column, order: 'asc'})
-        }
+    const handleSort = (objSorting) => {
+        setSorting(objSorting)
     };
     
     const handlePageChange = (numPage) => {
@@ -86,7 +81,7 @@ const App = () => {
             )}
             <div className="d-flex flex-column p-3">
                 {users && <TopStatus count={usersCount} />}
-                {users && <UsersTable users={usersCrop} onSort={handleSort} onDelete={handleDelete} onToggle={handleToggleBookmark} />}
+                {users && <UsersTable users={usersCrop} onSort={handleSort} selectedSort={sorting} onDelete={handleDelete} onToggle={handleToggleBookmark} />}
                 <Pagination count={usersCount} size={pageCountSize} page={currentPage} onChange={handlePageChange} />
             </div>
         </div>

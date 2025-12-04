@@ -1,31 +1,31 @@
+import TableHeader from "./tableHeader";
 import UserList from "./userList";
 import PropTypes from "prop-types";
 
 
-const UsersTable = ({usersCrop, onSort, ...rest}) => {
+const UsersTable = ({usersCrop, onSort, selectedSort, ...rest}) => {
+    const columns = {
+        name: {path: 'name', name: 'Имя'},
+        qualities: {name: 'Качества'},
+        profession: {path: 'profession.name', name: 'Профессия'},
+        complitedMeetings: {path: 'complitedMeetings', name: 'Встретился, раз'},
+        rate: {path: 'rate', name: 'Оценка'},
+        bookmark: {path: 'bookmark', name: 'Избранное'},
+        delete: {}
+    };
+
     return ( 
         <table className="table">
-            <thead>
-                <tr>
-                    <th role="button" onClick={() => onSort('name')} scope="col">Имя</th>
-                    <th role="button" scope="col">Качества</th>
-                    <th role="button" onClick={() => onSort('profession.name')} scope="col">Профессия</th>
-                    <th role="button" onClick={() => onSort('completedMeetings')} scope="col">Встретился раз</th>
-                    <th role="button" onClick={() => onSort('rate')} scope="col">Оценка</th>
-                    <th role="button" onClick={() => onSort('bookmark')} scope="col">Избранное</th>
-                    <th role="button" scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                {<UserList users={usersCrop} {...rest} />}
-            </tbody>
+            {<TableHeader {...{onSort, selectedSort, columns}} />}
+            {<UserList users={usersCrop} {...rest} />}
         </table>
      );
 };
 
 UsersTable.propTypes = {
     usersCrop: PropTypes.array.isRequired,
-    onSort: PropTypes.func.isRequired
+    onSort: PropTypes.func.isRequired,
+    currentSort: PropTypes.object.isRequired
 };
 
 
